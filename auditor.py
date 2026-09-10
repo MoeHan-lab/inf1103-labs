@@ -21,4 +21,13 @@ while True:
 
         total_inventory += quantity
         print(f"  Accepted. Current total inventory: {total_inventory} units.\n")
+
+        if total_inventory > 500:
+            print(f"  !! OVERSTOCK ALERT !! Total inventory ({total_inventory}) exceeds 500 units.")
+            print("  Halting entry process immediately.\n")
+            break
+        elif total_inventory == 500:
+            print("  Note: Inventory has reached exactly the 500-unit capacity.\n")
+        else:
+            pass
         
