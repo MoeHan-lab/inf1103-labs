@@ -6,4 +6,9 @@ while True:
 
         if user_input.lower() == "quit":
             break
+        if not user_input.isdigit():
+            print(f"  ERROR: '{user_input}' is not a valid whole number. Entry rejected.\n")
+            continue
+
+        quantity = int(user_input)
 total_inventory = 0 
