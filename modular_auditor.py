@@ -33,6 +33,14 @@ def calculate_tax(amount):
     """
     return amount * TAX_RATE
 
+def generate_report(total_units, failed_attempts):
+    """
+    Prints the final summary report.
+    """
+    print("=== End of Session Report ===")
+    print(f"Total Units Processed: {total_units}")
+    print(f"Number of Failed/Rejected Entries: {failed_attempts}")
+
 
 total_inventory = 0 
 failed_entries = 0
@@ -68,7 +76,4 @@ while True:
     else:
         pass
 
-# This block is now OUTSIDE the loop — runs once, after quit/overstock
-print("=== End of Session Report ===")
-print(f"Total Units Processed: {total_inventory}")
-print(f"Number of Failed/Rejected Entries: {failed_entries}")
+    generate_report(total_inventory, failed_entries)
