@@ -1,3 +1,5 @@
+TAX_RATE = 0.10  # 10% tax per delivery
+
 def get_valid_input():
 
     user_input = input("Enter stock quantity: ")
@@ -24,6 +26,14 @@ def process_delivery(current_total, new_value):
     """
     return current_total + new_value
 
+def calculate_tax(amount):
+    """
+    Calculates the tax owed on a single delivery amount.
+    Returns the tax amount (10% of the delivery).
+    """
+    return amount * TAX_RATE
+
+
 total_inventory = 0 
 failed_entries = 0
 
@@ -44,7 +54,10 @@ while True:
 
     quantity = result
     total_inventory = process_delivery(total_inventory, quantity)
-    print(f"  Accepted. Current total inventory: {total_inventory} units.\n")
+    tax = calculate_tax(quantity)
+    print(f"  Accepted. Delivery: {quantity} units | Tax on this delivery: {tax:.2f}")
+    print(f"  Current total inventory: {total_inventory} units.\n")
+
 
     if total_inventory > 500:
         print(f"  !! OVERSTOCK ALERT !! Total inventory ({total_inventory}) exceeds 500 units.")
