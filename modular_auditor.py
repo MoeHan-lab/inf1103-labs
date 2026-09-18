@@ -20,23 +20,15 @@ def get_valid_input():
     return quantity
 
 def process_delivery(current_total, new_value):
-    """
-    Adds a new delivery amount to the running total.
-    Returns the updated total.
-    """
+
     return current_total + new_value
 
 def calculate_tax(amount):
-    """
-    Calculates the tax owed on a single delivery amount.
-    Returns the tax amount (10% of the delivery).
-    """
+ 
     return amount * TAX_RATE
 
 def generate_report(total_units, failed_attempts):
-    """
-    Prints the final summary report.
-    """
+  
     print("=== End of Session Report ===")
     print(f"Total Units Processed: {total_units}")
     print(f"Number of Failed/Rejected Entries: {failed_attempts}")
