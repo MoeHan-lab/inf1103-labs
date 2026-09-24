@@ -1,4 +1,20 @@
+INVENTORY_FILE = "inventory.txt"
 TAX_RATE = 0.10  # 10% tax per delivery
+
+def load_inventory():
+
+    try:
+        with open(INVENTORY_FILE, "r") as f:
+            lines = f.readlines()
+            total = int(lines[0])
+            history_line = lines[1]
+            history = []
+            if history_line:
+                for x in history_line.split(","):
+                    history.append(int(x))
+            return total, history
+    except FileNotFoundError:
+        return 0, []
 
 def get_valid_input():
 
@@ -34,13 +50,15 @@ def generate_report(total_units, failed_attempts):
     print(f"Number of Failed/Rejected Entries: {failed_attempts}")
 
 
-total_inventory = 0 
+total_inventory, history = load_inventory()
 failed_entries = 0
 
 print("=== Inventory Audit System ===")
 print("Enter stock quantity for each delivery.")
 print("Type 'quit' at any time to stop and see the report.\n")
 
+if history:
+    print(f"Loaded past history: {history} (total {total_inventory})\n")
 while True:
 
     result = get_valid_input()
@@ -68,4 +86,4 @@ while True:
     else:
         pass
 
-    generate_report(total_inventory, failed_entries)
+generate_report(total_inventory, failed_entries)
