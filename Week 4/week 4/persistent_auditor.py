@@ -15,6 +15,13 @@ def load_inventory():
             return total, history
     except FileNotFoundError:
         return 0, []
+    
+def save_inventory(total, history):
+    with open(INVENTORY_FILE, "w") as f:
+        f.write(f"{total}\n")
+        f.write(",".join(str(q) for q in history) + "\n")
+    print(f"  Saved to {INVENTORY_FILE}.\n")
+
 
 def get_valid_input():
 
@@ -64,6 +71,7 @@ while True:
     result = get_valid_input()
 
     if result == "quit":
+        save_inventory(total_inventory, history)
         break
 
     if result is None:
@@ -72,6 +80,7 @@ while True:
 
     quantity = result
     total_inventory = process_delivery(total_inventory, quantity)
+    history.append(quantity)
     tax = calculate_tax(quantity)
     print(f"  Accepted. Delivery: {quantity} units | Tax on this delivery: {tax:.2f}")
     print(f"  Current total inventory: {total_inventory} units.\n")
