@@ -94,3 +94,37 @@ def add_product(inventory):
     })
     print("\nProduct added successfully!")
 
+def update_stock(inventory):
+    """Update the stock quantity of an existing product."""
+    print("\nUpdate Stock")
+    product_id = input("Product ID: ").strip()
+    product = find_product(inventory, product_id)
+
+    if product is None:
+        print(f"\nProduct '{product_id}' not found.")
+        return
+
+    print(f"Current stock for {product['name']}: {product['stock']}")
+    new_stock = get_valid_int("New Stock Quantity: ")
+    product["stock"] = new_stock
+    print("\nStock updated successfully!")
+
+def search_product(inventory):
+    """Search for a product by ID or by (partial) name."""
+    print("\nSearch Product")
+    keyword = input("Enter Product ID or Name: ").strip().lower()
+
+    matches = [p for p in inventory
+               if keyword == p["id"].lower() or keyword in p["name"].lower()]
+
+    if not matches:
+        print("\nNo matching product found.")
+        return
+
+    print("\nSearch Results")
+    print("-" * 47)
+    for p in matches:
+        print(f"ID: {p['id']} | Name: {p['name']} | "
+              f"Price: ${p['price']:.2f} | Stock: {p['stock']}")
+    print("-" * 47)
+
