@@ -66,3 +66,31 @@ def display_all(inventory):
                   f"Price: ${p['price']:.2f} | Stock: {p['stock']}")
     print("-" * 47)
 
+def add_product(inventory):
+    """Add a new product to the inventory."""
+    print("\nAdd New Product")
+    product_id = input("Product ID: ").strip()
+
+    if not product_id:
+        print("\nERROR: Product ID cannot be empty.")
+        return
+    if find_product(inventory, product_id):
+        print(f"\nERROR: Product ID '{product_id}' already exists.")
+        return
+
+    name = input("Product Name: ").strip()
+    if not name:
+        print("\nERROR: Product name cannot be empty.")
+        return
+
+    price = get_valid_float("Price: ")
+    stock = get_valid_int("Stock Quantity: ")
+
+    inventory.append({
+        "id": product_id,
+        "name": name,
+        "price": price,
+        "stock": stock
+    })
+    print("\nProduct added successfully!")
+
