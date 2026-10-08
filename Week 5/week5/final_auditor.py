@@ -1,26 +1,28 @@
-INVENTORY_FILE = "inventory.txt"
-TAX_RATE = 0.10  # 10% tax per delivery
+import json
+
+INVENTORY_FILE = "inventory.json"
 
 def load_inventory():
-
+    """Load inventory from inventory.json if it exists, else return an empty list."""
     try:
         with open(INVENTORY_FILE, "r") as f:
-            lines = f.readlines()
-            total = int(lines[0])
-            history_line = lines[1]
-            history = []
-            if history_line:
-                for x in history_line.split(","):
-                    history.append(int(x))
-            return total, history
+            inventory = json.load(f)
+        print(f"{INVENTORY_FILE} found.")
+        print("Inventory loaded successfully.")
+        return inventory
     except FileNotFoundError:
-        return 0, []
-    
-def save_inventory(total, history):
+        print(f"{INVENTORY_FILE} not found. Starting with an empty inventory.")
+        return []
+    except json.JSONDecodeError:
+        print("ERROR: Could not read inventory file. Starting with an empty inventory.")
+        return []
+
+
+def save_inventory(inventory):
+    """Save the inventory list to inventory.json."""
     with open(INVENTORY_FILE, "w") as f:
-        f.write(f"{total}\n")
-        f.write(",".join(str(q) for q in history) + "\n")
-    print(f"  Saved to {INVENTORY_FILE}.\n")
+        json.dump(inventory, f, indent=4)
+    print(f"Inventory saved to {INVENTORY_FILE}.")
 
 
 def get_valid_input():
