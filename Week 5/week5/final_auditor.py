@@ -46,3 +46,23 @@ def get_valid_float(prompt):
         except ValueError:
             print(f"  ERROR: '{value}' is not a valid number.")
 
+def find_product(inventory, product_id):
+    """Return the product dict matching product_id (case-insensitive), or None."""
+    for product in inventory:
+        if product["id"].lower() == product_id.lower():
+            return product
+    return None
+
+
+def display_all(inventory):
+    """Display every product in the inventory."""
+    print("\nCurrent Inventory")
+    print("-" * 47)
+    if not inventory:
+        print("Inventory is empty.")
+    else:
+        for p in inventory:
+            print(f"ID: {p['id']} | Name: {p['name']} | "
+                  f"Price: ${p['price']:.2f} | Stock: {p['stock']}")
+    print("-" * 47)
+
